@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="CareLayer — Who are you talking to?">
+  <rect width="1280" height="640" fill="#F6F1E7"/>
+  <rect x="0" y="0" width="1280" height="10" fill="#20483A"/>
+  <text x="80" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#20483A" letter-spacing="1">CareLayer</text>
+  <text x="80" y="245" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="bold" fill="#111111">Who are you</text>
+  <text x="80" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="bold" fill="#111111">talking to?</text>
+  <text x="80" y="395" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="27" fill="#3d3d3d">A medical context card for EDS, chronic illness, and invisible disability.</text>
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" fill="#20483A">
+    <g>
+      <rect x="80" y="445" width="150" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="155" y="479" text-anchor="middle">Nurse</text>
+    </g>
+    <g>
+      <rect x="248" y="445" width="212" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="354" y="479" text-anchor="middle">Primary Care</text>
+    </g>
+    <g>
+      <rect x="478" y="445" width="242" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="599" y="479" text-anchor="middle">Emergency Room</text>
+    </g>
+    <g>
+      <rect x="80" y="515" width="196" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="178" y="549" text-anchor="middle">Orthopedic</text>
+    </g>
+    <g>
+      <rect x="294" y="515" width="236" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="412" y="549" text-anchor="middle">Physical Therapy</text>
+    </g>
+    <g>
+      <rect x="548" y="515" width="226" height="52" rx="26" fill="#DCEBDF"/>
+      <text x="661" y="549" text-anchor="middle">Friend / Family</text>
+    </g>
+  </g>
+  <text x="1200" y="130" text-anchor="end" font-family="ui-monospace, Menlo, monospace" font-size="22" fill="#4F9274">local-first · no account · offline</text>
+  <rect x="80" y="600" width="1120" height="2" fill="#E7C873"/>
+</svg>
