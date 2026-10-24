@@ -36,7 +36,7 @@ struct HomeView: View {
             EmergencyCardView(profile: profile)
         }
         .sheet(isPresented: $showingProfileEditor) {
-            NavigationStack { ProfileEditorView(profile: profile) }
+            NavigationStack { ProfileEditorView(profile: profile, isSheet: true) }
         }
     }
 

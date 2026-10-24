@@ -12,20 +12,39 @@ import SwiftData
 /// separate draft copy of the profile.
 struct ProfileEditorView: View {
     @Bindable var profile: UserProfile
+    /// True when shown as a sheet (Home / Card), so it gets a Done button.
+    var isSheet = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var showSaved = false
     @State private var confirmClear = false
     @State private var customPronouns = ""
     @State private var customConditionType = ""
+    // Custom mode is tracked explicitly. Deriving it from the stored value
+    // alone failed: choosing "Custom" stored "" and the picker snapped
+    // straight back, so the custom text field never appeared.
+    @State private var isCustomPronouns = false
+    @State private var isCustomCondition = false
 
     private var pronounPickerValue: String {
-        ProfileOptions.pronouns.contains(profile.pronouns) || profile.pronouns.isEmpty
-            ? (profile.pronouns.isEmpty ? "Prefer not to say" : profile.pronouns) : "Custom"
+        if isCustomPronouns { return "Custom" }
+        return profile.pronouns.isEmpty ? "Prefer not to say" : profile.pronouns
     }
     private var conditionPickerValue: String {
-        ProfileOptions.conditionTypes.contains(profile.primaryConditionType) || profile.primaryConditionType.isEmpty
-            ? profile.primaryConditionType : "Other / custom"
+        isCustomCondition ? "Other / custom" : profile.primaryConditionType
+    }
+
+    /// Restores custom mode for values that aren't in the option lists.
+    private func syncCustomModes() {
+        if !profile.pronouns.isEmpty, !ProfileOptions.pronouns.contains(profile.pronouns) {
+            isCustomPronouns = true
+            customPronouns = profile.pronouns
+        }
+        if !profile.primaryConditionType.isEmpty,
+           !ProfileOptions.conditionTypes.contains(profile.primaryConditionType) {
+            isCustomCondition = true
+            customConditionType = profile.primaryConditionType
+        }
     }
 
     var body: some View {
@@ -43,10 +62,23 @@ struct ProfileEditorView: View {
         .background(CarePalette.background)
         .navigationTitle("My Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if isSheet {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        try? modelContext.save()
+                        dismiss()
+                    }
+                }
+            }
+        }
+        .onAppear(perform: syncCustomModes)
         .confirmationDialog("Clear my information?",
                             isPresented: $confirmClear, titleVisibility: .visible) {
             Button("Clear Everything", role: .destructive) {
                 profile.clearAll()
+                isCustomPronouns = false; customPronouns = ""
+                isCustomCondition = false; customConditionType = ""
                 try? modelContext.save()
             }
             Button("Cancel", role: .cancel) {}
@@ -92,11 +124,8 @@ struct ProfileEditorView: View {
             Picker("Pronouns", selection: Binding(
                 get: { pronounPickerValue },
                 set: { newValue in
-                    if newValue == "Custom" {
-                        profile.pronouns = customPronouns
-                    } else {
-                        profile.pronouns = newValue
-                    }
+                    isCustomPronouns = newValue == "Custom"
+                    profile.pronouns = isCustomPronouns ? customPronouns : newValue
                 })) {
                 ForEach(ProfileOptions.pronouns, id: \.self) { Text($0).tag($0) }
             }
@@ -113,8 +142,9 @@ struct ProfileEditorView: View {
             Picker("EDS type", selection: Binding(
                 get: { conditionPickerValue },
                 set: { newValue in
+                    isCustomCondition = newValue == "Other / custom"
                     profile.primaryConditionType =
-                        newValue == "Other / custom" ? customConditionType : newValue
+                        isCustomCondition ? customConditionType : newValue
                 })) {
                 Text("Not set").tag("")
                 ForEach(ProfileOptions.conditionTypes, id: \.self) { Text($0).tag($0) }
@@ -225,6 +255,7 @@ struct ProfileEditorView: View {
         Section("Manage") {
             Button("Load sample profile") {
                 profile.loadSampleValues()
+                isCustomPronouns = false; isCustomCondition = false
                 try? modelContext.save()
             }
             Button("Clear my information", role: .destructive) { confirmClear = true }

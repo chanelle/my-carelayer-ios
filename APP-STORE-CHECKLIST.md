@@ -48,8 +48,8 @@ Status key: ✅ done in this build · ☐ TODO (Chanelle decision/action) ·
   PRIVACY-NOTES.md)
 - ✅ No permissions requested — no usage-description strings needed
 - ✅ Export compliance: the app uses no non-exempt encryption (no
-  network, no custom crypto) — answer "No" to encryption use in
-  App Store Connect, or add `ITSAppUsesNonExemptEncryption = NO`
+  network, no custom crypto). `ITSAppUsesNonExemptEncryption = NO` is
+  set in the generated Info.plist, so App Store Connect won't ask
 - ☐ Privacy policy URL live and matching PRIVACY-NOTES.md
 - ☐ Review notes for App Review: explain local-only storage, how to
   load the sample profile for review, and that no account exists
@@ -61,8 +61,10 @@ Status key: ✅ done in this build · ☐ TODO (Chanelle decision/action) ·
 - ◐ VoiceOver pass on: onboarding, audience grid, accordions, card,
   QR sheet, profile editor
 - ◐ Reduce Motion pass: accordion + onboarding paging
-- ☐ Verify contrast in Dark Mode (palette is a fixed light palette —
-  decide whether Dark Mode needs its own pass or a light-only lock)
+- ✅ Dark Mode: locked to light (`UIUserInterfaceStyle = Light`) for v1.
+  Unstyled text (card section titles, form rows, headings) turned white
+  on the cream card in Dark Mode and became unreadable. A real dark
+  palette is a v1.1 job; remove the lock only after that pass
 - ☐ Accessibility Nutrition Labels (App Store Connect, optional but
   recommended): VoiceOver, Dynamic Type, Sufficient Contrast, Reduced Motion
 

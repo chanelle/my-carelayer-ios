@@ -47,7 +47,7 @@ struct EmergencyCardView: View {
             NavigationStack { QRCodeView(payload: ShareComposer.emergencyCardText(profile: profile)) }
         }
         .sheet(isPresented: $showingProfileEditor) {
-            NavigationStack { ProfileEditorView(profile: profile) }
+            NavigationStack { ProfileEditorView(profile: profile, isSheet: true) }
         }
     }
 
