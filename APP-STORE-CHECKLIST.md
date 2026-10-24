@@ -19,7 +19,8 @@ Status key: ✅ done in this build · ☐ TODO (Chanelle decision/action) ·
 - ☐ **Bundle identifier** — `com.chanellehenry.carelayer` is a
   placeholder; confirm ownership or replace
 - ☐ **Apple Developer Program** enrollment (needed for App Store)
-- ☐ **App icon** — PNG set incl. 1024×1024 (asset catalog has slots only)
+- ✅ **App icon**: design #2 "CareLayer Card", 1024×1024 RGB with no alpha,
+  single-size asset. Vector source: `docs/icon/carelayer-card-icon.svg`
 - ☐ **Privacy policy URL** — required by App Store Connect even though
   the app collects no data; PRIVACY-NOTES.md can seed the page
 - ☐ **Support URL** and contact email for the listing
